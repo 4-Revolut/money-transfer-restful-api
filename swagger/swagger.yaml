@@ -23,6 +23,8 @@ paths:
           description: user created
         400:
           description: invalid input
+        409:
+          description: user already exists
 components:
   schemas:
     user:
