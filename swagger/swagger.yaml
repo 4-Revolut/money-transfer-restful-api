@@ -19,8 +19,8 @@ paths:
       summary: create new user
       operationId: addUser
       responses:
-        405:
-          description: ok
+        200:
+          description: user created
 components:
   schemas:
     user:
