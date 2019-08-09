@@ -6,7 +6,21 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/4-Revolut/money-transfer/1.0
   description: SwaggerHub API Auto Mocking
-paths: {}
+tags:
+- name: user
+  description: user operations
+- name: account
+  description: account operations
+paths:
+  /user:
+    post:
+      tags:
+      - user
+      summary: create new user
+      operationId: addUser
+      responses:
+        405:
+          description: ok
 components:
   schemas:
     user:
