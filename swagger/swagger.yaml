@@ -19,8 +19,10 @@ paths:
       summary: create new user
       operationId: addUser
       responses:
-        200:
+        201:
           description: user created
+        400:
+          description: invalid input
 components:
   schemas:
     user:
