@@ -7,4 +7,35 @@ servers:
 - url: https://virtserver.swaggerhub.com/4-Revolut/money-transfer/1.0
   description: SwaggerHub API Auto Mocking
 paths: {}
-components: {}
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+    account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        balance:
+          type: number
+  requestBodies:
+    user:
+      description: new user to add to the system
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/user'
+      required: true
