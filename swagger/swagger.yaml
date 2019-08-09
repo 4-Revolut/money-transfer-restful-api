@@ -47,11 +47,11 @@ components:
           format: email
         firstname:
           maxLength: 10
-          minLength: 3
+          minLength: 5
           type: string
         lastname:
           maxLength: 10
-          minLength: 3
+          minLength: 5
           type: string
     account:
       type: object
@@ -59,8 +59,11 @@ components:
         id:
           type: string
         name:
+          maxLength: 10
+          minLength: 5
           type: string
         balance:
+          maximum: 1000.0
           minimum: 0
           type: number
   requestBodies:
