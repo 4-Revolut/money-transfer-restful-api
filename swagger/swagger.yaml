@@ -16,8 +16,14 @@ paths:
     post:
       tags:
       - user
-      summary: create new user
+      summary: creates new user
       operationId: addUser
+      requestBody:
+        description: create new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
       responses:
         201:
           description: user created
@@ -28,17 +34,24 @@ paths:
 components:
   schemas:
     user:
+      required:
+      - email
+      - firstname
+      - lastname
       type: object
       properties:
         id:
           type: string
-        username:
+        email:
           type: string
+          format: email
         firstname:
+          maxLength: 10
+          minLength: 3
           type: string
         lastname:
-          type: string
-        email:
+          maxLength: 10
+          minLength: 3
           type: string
     account:
       type: object
@@ -48,6 +61,7 @@ components:
         name:
           type: string
         balance:
+          minimum: 0
           type: number
   requestBodies:
     user:
