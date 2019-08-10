@@ -13,6 +13,24 @@ tags:
   description: account operations
 paths:
   /user:
+    put:
+      tags:
+      - user
+      summary: updates user
+      operationId: editUser
+      requestBody:
+        description: create new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        200:
+          description: user updated
+        400:
+          description: invalid input
+        404:
+          description: user not found
     post:
       tags:
       - user
@@ -31,6 +49,30 @@ paths:
           description: invalid input
         409:
           description: user already exists
+  /user/{userid}:
+    get:
+      tags:
+      - user
+      summary: Get user by user id
+      operationId: getUserById
+      parameters:
+      - name: userid
+        in: path
+        description: user id that needs to be fetched
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: user found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        404:
+          description: user not found
 components:
   schemas:
     user:
@@ -59,7 +101,7 @@ components:
         id:
           type: string
         name:
-          maxLength: 10
+          maxLength: 5
           minLength: 5
           type: string
         balance:
