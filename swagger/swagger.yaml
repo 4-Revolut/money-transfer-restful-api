@@ -95,6 +95,8 @@ components:
           maxLength: 10
           minLength: 5
           type: string
+        accountArray:
+          $ref: '#/components/responses/accountArray'
     account:
       type: object
       properties:
@@ -108,6 +110,15 @@ components:
           maximum: 1000.0
           minimum: 0
           type: number
+  responses:
+    accountArray:
+      description: account array
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/account'
   requestBodies:
     user:
       description: new user to add to the system
