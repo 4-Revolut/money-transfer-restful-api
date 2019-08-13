@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -20,7 +21,7 @@ public class AccountRestApiTest {
     public void accountCreatedOk() {
         given()
             .contentType("application/json")
-            .body(new Account("accountName", new BigDecimal("1000")))
+            .body(new Account(UUID.randomUUID().toString(), "accountName", new BigDecimal("1000")))
             .when().post("/account")
             .then().statusCode(200);
     }

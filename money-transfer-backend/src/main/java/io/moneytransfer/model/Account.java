@@ -1,7 +1,6 @@
 package io.moneytransfer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -9,34 +8,29 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-/**
- * Account
- */
 public class Account {
     @JsonProperty("id")
     private String id = null;
 
+    @Size(min = 5, max = 36)
     @JsonProperty("name")
     private String name = null;
 
+    @DecimalMin("0")
+    @DecimalMax("10000")
     @JsonProperty("balance")
     private BigDecimal balance = null;
 
     public Account() {
     }
 
-    public Account(String name, BigDecimal balance) {
+    public Account(String id, String name, BigDecimal balance) {
+        this.id = id;
         this.name = name;
         this.balance = balance;
     }
 
-    /**
-     * Get id
-     *
-     * @return id
-     **/
-    @JsonProperty("id")
-    @Schema(description = "")
+
     public String getId() {
         return id;
     }
@@ -50,14 +44,6 @@ public class Account {
         return this;
     }
 
-    /**
-     * Get name
-     *
-     * @return name
-     **/
-    @JsonProperty("name")
-    @Schema(description = "")
-    @Size(min = 5, max = 5)
     public String getName() {
         return name;
     }
@@ -71,17 +57,6 @@ public class Account {
         return this;
     }
 
-    /**
-     * Get balance
-     * minimum: 0
-     * maximum: 1000
-     *
-     * @return balance
-     **/
-    @JsonProperty("balance")
-    @Schema(description = "")
-    @DecimalMin("0")
-    @DecimalMax("10000")
     public BigDecimal getBalance() {
         return balance;
     }

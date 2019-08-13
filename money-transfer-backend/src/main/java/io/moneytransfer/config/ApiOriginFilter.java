@@ -1,4 +1,4 @@
-package io.moneytransfer.api;
+package io.moneytransfer.config;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

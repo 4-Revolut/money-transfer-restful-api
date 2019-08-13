@@ -1,10 +1,11 @@
-package io.moneytransfer.api;
+package io.moneytransfer.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import io.moneytransfer.api.RFC3339DateFormat;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;

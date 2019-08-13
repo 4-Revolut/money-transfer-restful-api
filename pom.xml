@@ -16,7 +16,7 @@
 
   <modules>
     <module>money-transfer-backend</module>
-<!--    <module>money-transfer-test</module>-->
+    <module>money-transfer-test</module>
   </modules>
 
   <repositories>

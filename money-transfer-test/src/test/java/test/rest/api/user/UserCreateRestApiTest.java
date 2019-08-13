@@ -5,6 +5,7 @@ import io.moneytransfer.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import static io.moneytransfer.constants.MiscConstants.ERROR_RESPONSE_TYPE;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -24,10 +25,31 @@ public class UserCreateRestApiTest {
     @Test
     public void userCreatedOk() {
         given()
+            .contentType("application/json")
+            .body(new User("somemail@mailbox.com", "firstname", "lastname", null))
+            .when().post("/user")
+            .then().statusCode(200);
+        clearContext();
+    }
+
+    @Test
+    public void userCreateFail_duplicateUserEmail() {
+        given()
                 .contentType("application/json")
                 .body(new User("somemail@mailbox.com", "firstname", "lastname", null))
                 .when().post("/user")
-                .then().statusCode(200);
+                .then()
+                .statusCode(200);
+
+        given()
+                .contentType("application/json")
+                .body(new User("somemail@mailbox.com", "firstname", "lastname", null))
+                .when().post("/user")
+                .then()
+                .statusCode(409)
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("User with provided email already exists"));
+        clearContext();
     }
 
     @Test
@@ -35,7 +57,10 @@ public class UserCreateRestApiTest {
         given()
             .contentType("application/json")
             .when().post("/user")
-            .then().statusCode(400);
+            .then()
+                .statusCode(400)
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("Provide new User information as json"));
     }
 
     @Test
@@ -46,9 +71,8 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then()
                     .statusCode(400)
-                    .body("type", equalTo("error"))
-                    .body("message", equalTo("error"));
-//                    .body("message", oneOf("email is mandatory", "firstname is mandatory", "lastname is mandatory"));
+                    .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                    .body("message", oneOf("email is mandatory", "firstname is mandatory", "lastname is mandatory"));
     }
 
     @Test
@@ -59,7 +83,7 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("firstname should be between 5 and 10 symbols"));
     }
 
@@ -71,7 +95,7 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("firstname should be between 5 and 10 symbols"));
     }
 
@@ -83,7 +107,7 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("lastname should be between 5 and 10 symbols"));
     }
 
@@ -96,7 +120,7 @@ public class UserCreateRestApiTest {
             .post("/user")
         .then().statusCode(400)
             .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("lastname should be between 5 and 10 symbols"));
     }
 
@@ -108,7 +132,7 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("please provide correct email"));
     }
 
@@ -120,7 +144,7 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("email should be between 10 and 20 symbols"));
     }
 
@@ -132,7 +156,14 @@ public class UserCreateRestApiTest {
                 .when().post("/user")
                 .then().statusCode(400)
                 .assertThat()
-                .body("type", equalTo("error"))
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("email should be between 10 and 20 symbols"));
+    }
+
+    private void clearContext() {
+        given()
+                .contentType("application/json")
+                .when().get("/test/clearContext")
+                .then().statusCode(200);
     }
 }

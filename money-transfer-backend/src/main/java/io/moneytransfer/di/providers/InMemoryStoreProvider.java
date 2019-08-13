@@ -1,5 +1,7 @@
-package io.moneytransfer.store;
+package io.moneytransfer.di.providers;
 
+
+import io.moneytransfer.store.InMemoryStore;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;

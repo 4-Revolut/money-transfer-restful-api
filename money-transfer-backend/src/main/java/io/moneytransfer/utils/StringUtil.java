@@ -1,6 +1,6 @@
-package io.moneytransfer.api;
+package io.moneytransfer.utils;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2019-08-10T17:54:56.737Z[GMT]")public class StringUtil {
+public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).
    *

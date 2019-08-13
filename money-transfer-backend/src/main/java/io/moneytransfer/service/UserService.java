@@ -1,47 +1,42 @@
 package io.moneytransfer.service;
 
-import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.api.ApiResponseMessage;
+import io.moneytransfer.model.AccountArray;
 import io.moneytransfer.model.User;
 import io.moneytransfer.store.InMemoryStore;
+import io.moneytransfer.validation.user.UserDuplicateCheck;
+import io.moneytransfer.validation.user.UserValidation;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.ws.rs.BadRequestException;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.core.Response;
-import java.util.Set;
 
-import static constants.Constants.ERROR;
 import static java.util.UUID.randomUUID;
-import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
-import static javax.ws.rs.core.Response.status;
 
+@Singleton
 public class UserService {
+
+    @Inject private UserValidation userValidation;
+    @Inject private InMemoryStore inMemoryStore;
+    @Inject private AccountService accountService;
+    @Inject private UserDuplicateCheck userDuplicateCheck;
 
     public UserService() {
     }
 
-    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    private final Validator validator = factory.getValidator();
-
-    public Response addUser(User user, InMemoryStore inMemoryStore) {
-        if (user == null) {
-            throw new BadRequestException();
+    public Response addUser(User user) {
+        userValidation.validate(user);
+        userDuplicateCheck.setInMemoryStore(inMemoryStore);
+        userDuplicateCheck.validate(user);
+        String userId = randomUUID().toString();
+        user.setId(userId);
+        if (user.getAccountArray() == null || user.getAccountArray().isEmpty()) {
+            AccountArray accountArray = new AccountArray();
+            accountArray.add(accountService.createPromoAccount());
+            user.setAccountArray(accountArray);
         }
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        if (violations.size() > 0) {
-            return status(BAD_REQUEST)
-                    .entity(new ApiResponse(ERROR, violations.stream().findFirst().get().getMessage()))
-                    .header(CONTENT_TYPE, APPLICATION_JSON)
-                    .build();
-        }
-        user.setId(randomUUID().toString());
         inMemoryStore.getUsers().put(user.getId(), user);
-        return Response.ok().entity(user).build();
+        return Response.ok().entity(inMemoryStore.getUsers().get(userId)).build();
     }
 
     public Response editUser(User userUpdate) {
@@ -51,5 +46,21 @@ public class UserService {
     public Response getUserById(String userid) {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "getUserById magic!")).build();
+    }
+
+    public void setUserValidation(UserValidation userValidation) {
+        this.userValidation = userValidation;
+    }
+
+    public void setInMemoryStore(InMemoryStore inMemoryStore) {
+        this.inMemoryStore = inMemoryStore;
+    }
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    public void setUserDuplicateCheck(UserDuplicateCheck userDuplicateCheck) {
+        this.userDuplicateCheck = userDuplicateCheck;
     }
 }
