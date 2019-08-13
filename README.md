@@ -1,2 +1,2 @@
-# money-transfer-restful-api
+# money-transfer
 Restful api simulate money transfer between accounts

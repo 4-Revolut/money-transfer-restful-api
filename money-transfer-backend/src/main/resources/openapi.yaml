@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'money-transfer simulation'
+  description: 'money-transfer simulation restful api'
+# Added by API Auto Mocking Plugin
+servers:
+  - description: localhost
+    url: http://localhost:8080/4-Revolut/money-transfer/1.0
+tags:
+  - name: user
+    description: user operations
+  - name: account
+    description: account operations
+
+paths:
+  /user:
+    post:
+      tags: 
+        - user
+      summary: creates new user
+      operationId: addUser
+      responses:
+        201:
+          description: user created
+        400:
+          description: invalid input
+        409:
+          description: user already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        description: create new user
+    put:
+      tags: 
+        - user
+      summary: updates user
+      operationId: editUser
+      responses:
+        200:
+          description: user updated
+        400:
+          description: invalid input
+        404:
+          description: user not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        description: create new user
+  /user/{userid}:
+    get:
+      tags:
+        - user
+      summary: Get user by user id
+      operationId: getUserById
+      parameters:
+        - name: userid
+          required: true
+          in: path
+          description: user id that needs to be fetched
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+                
+        '404':
+          description: user not found
+    
+components:
+  schemas:
+    user:
+      type: object
+      required:
+        - email
+        - firstname
+        - lastname
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+          minLength: 5
+          maxLength: 10
+        lastname:
+          type: string
+          minLength: 5
+          maxLength: 10
+        accountArray:
+          $ref: "#/components/schemas/accountArray"
+          
+    accountArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/account"
+
+    account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 5
+          maxLength: 5
+        balance:
+          type: number
+          minimum: 0
+          maximum: 1000
+
+  requestBodies:
+    user:
+      description: new user to add to the system
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/user"
