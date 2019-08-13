@@ -11,6 +11,8 @@ tags:
   description: user operations
 - name: account
   description: account operations
+- name: transfer
+  description: transfer between accounts
 paths:
   /user:
     put:
@@ -19,7 +21,7 @@ paths:
       summary: updates user
       operationId: editUser
       requestBody:
-        description: create new user
+        description: edit existing user
         content:
           application/json:
             schema:
@@ -73,6 +75,23 @@ paths:
                 $ref: '#/components/schemas/user'
         404:
           description: user not found
+  /transfer:
+    post:
+      tags:
+      - transfer
+      summary: moves money
+      operationId: transfer
+      requestBody:
+        description: transfer details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transfer'
+      responses:
+        200:
+          description: user created
+        400:
+          description: invalid input
 components:
   schemas:
     user:
@@ -97,10 +116,6 @@ components:
           type: string
         accountArray:
           $ref: '#/components/schemas/accountArray'
-    accountArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/account'
     account:
       type: object
       properties:
@@ -112,6 +127,25 @@ components:
           type: string
         balance:
           maximum: 1000.0
+          minimum: 0
+          type: number
+    accountArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/account'
+    transfer:
+      required:
+      - amount
+      - credit-account-id
+      - debit-account-id
+      type: object
+      properties:
+        debit-account-id:
+          type: string
+        credit-account-id:
+          type: string
+        amount:
+          maximum: 5000.0
           minimum: 0
           type: number
   requestBodies:
