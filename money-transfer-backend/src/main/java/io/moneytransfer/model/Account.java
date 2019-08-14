@@ -16,8 +16,8 @@ public class Account {
     @JsonProperty("name")
     private String name = null;
 
-    @DecimalMin("0")
-    @DecimalMax("10000")
+    @DecimalMin(value = "0", message = "Account balance can't be negative")
+    @DecimalMax(value = "10000", message = "Account max allowed balance is 10000")
     @JsonProperty("balance")
     private BigDecimal balance = null;
 

@@ -2,6 +2,7 @@ package test.rest.api.user;
 
 
 import io.moneytransfer.model.Account;
+import io.moneytransfer.model.AccountArray;
 import io.moneytransfer.model.User;
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 import static io.moneytransfer.constants.MiscConstants.ERROR_RESPONSE_TYPE;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.oneOf;
@@ -187,6 +189,77 @@ public class UserCreateRestApiTest {
                 .assertThat()
                 .body("type", equalTo(ERROR_RESPONSE_TYPE))
                 .body("message", equalTo("email should be between 10 and 30 symbols"));
+    }
+
+    @Test
+    public void userCreateFail_MoreThanOneAccount() {
+        User user = new User();
+        user.setEmail("somemail@mailbox.com");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+
+        Account accountA = new Account(null, "accountA", new BigDecimal(777));
+        Account accountB = new Account(null, "accountB", new BigDecimal(777));
+        AccountArray accountArray = new AccountArray();
+        accountArray.add(accountA);
+        accountArray.add(accountB);
+
+        user.setAccountArray(accountArray);
+        given()
+                .contentType("application/json")
+                .body(user)
+                .when().post(USER_PATH)
+                .then()
+                .statusCode(400)
+                .assertThat()
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("User can be created with one account only"));
+    }
+
+    @Test
+    public void userCreateFail_AccountBalanceOverAllowedLimit() {
+        User user = new User();
+        user.setEmail("somemail@mailbox.com");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+
+        Account accountA = new Account(null, "accountA", new BigDecimal(77711));
+        AccountArray accountArray = new AccountArray();
+        accountArray.add(accountA);
+
+        user.setAccountArray(accountArray);
+        given()
+                .contentType("application/json")
+                .body(user)
+                .when().post(USER_PATH)
+                .then()
+                .statusCode(400)
+                .assertThat()
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("Account max allowed balance is 10000"));
+    }
+
+    @Test
+    public void userCreateFail_AccountBalanceNegative() {
+        User user = new User();
+        user.setEmail("somemail@mailbox.com");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+
+        Account accountA = new Account(null, "accountA", TEN.negate());
+        AccountArray accountArray = new AccountArray();
+        accountArray.add(accountA);
+
+        user.setAccountArray(accountArray);
+        given()
+                .contentType("application/json")
+                .body(user)
+                .when().post(USER_PATH)
+                .then()
+                .statusCode(400)
+                .assertThat()
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("Account balance can't be negative"));
     }
 
     private Account promoAccount() {

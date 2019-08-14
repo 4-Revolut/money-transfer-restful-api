@@ -2,6 +2,9 @@ package io.moneytransfer.service;
 
 import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.model.Account;
+import io.moneytransfer.model.AccountArray;
+import io.moneytransfer.model.User;
+import io.moneytransfer.validation.account.AccountValidation;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,8 +25,19 @@ public class AccountService {
     public static final String PROMO_ACCOUNT = "promo-account";
     public static final String THOUSAND = "1000";
 
-    @Inject
-    private UserFetchService userFetchService;
+    @Inject private AccountValidation accountValidation;
+    @Inject private UserFetchService userFetchService;
+
+    public void createAccount(User user) {
+        if (user.getAccountArray() == null || user.getAccountArray().isEmpty()) {
+            AccountArray accountArray = new AccountArray();
+            accountArray.add(createPromoAccount());
+            user.setAccountArray(accountArray);
+        } else {
+            accountValidation.validate(user);
+            user.getAccountArray().get(0).setId(UUID.randomUUID().toString());
+        }
+    }
 
     public Account createPromoAccount() {
         return new Account(UUID.randomUUID().toString(), PROMO_ACCOUNT, new BigDecimal(THOUSAND));

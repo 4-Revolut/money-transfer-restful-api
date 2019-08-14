@@ -32,10 +32,4 @@ public class UserDuplicateCheck {
     public void validate(User newUser) {
         inMemoryStore.getAllData().values().stream().filter(user -> user.getEmail().equals(newUser.getEmail())).findFirst().ifPresent(duplicateFound);
     }
-
-    public void setInMemoryStore(InMemoryStore inMemoryStore) {
-        this.inMemoryStore = inMemoryStore;
-    }
-
-
 }
