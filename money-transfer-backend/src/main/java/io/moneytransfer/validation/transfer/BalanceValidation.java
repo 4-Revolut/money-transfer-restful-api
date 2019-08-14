@@ -29,7 +29,7 @@ public class BalanceValidation {
     }
 
     public void validateCredit(Account creditAccount, BigDecimal creditAmount) {
-        if (creditAccount.getBalance().add(creditAmount).compareTo(ZERO) > 10000) {
+        if (creditAccount.getBalance().add(creditAmount).compareTo(new BigDecimal(10000)) > 0) {
             throw new WebApplicationException(
                     status(BAD_REQUEST)
                             .entity(new ApiResponse(ERROR_RESPONSE_TYPE, format("Transfer failed, credited amount too big to transfer to account:%s", creditAccount.getId())))
