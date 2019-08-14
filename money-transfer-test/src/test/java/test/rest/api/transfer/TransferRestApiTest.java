@@ -26,6 +26,7 @@ public class TransferRestApiTest {
     @Before
     public void setup() {
         baseURI = "http://localhost:8080/4-Revolut/money-transfer/1.0";
+        testContextApi.clearContext();
         data = data.sampleData();
     }
 

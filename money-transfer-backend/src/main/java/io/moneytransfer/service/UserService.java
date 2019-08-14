@@ -18,6 +18,7 @@ public class UserService {
     @Inject private InMemoryStore inMemoryStore;
     @Inject private AccountService accountService;
     @Inject private UserDuplicateCheck userDuplicateCheck;
+    @Inject private UserFetchService userFetchService;
 
     public UserService() {
     }
@@ -33,6 +34,11 @@ public class UserService {
     }
 
     public Response editUser(User userUpdate) {
-        return Response.ok().entity( "NOT SUPPORTED").build();
+        userValidation.validate(userUpdate);
+        User currentUser = userFetchService.getUser(userUpdate.getId());
+        userDuplicateCheck.validate(userUpdate);
+        userUpdate.setAccountArray(currentUser.getAccountArray());
+        inMemoryStore.getAllData().put(userUpdate.getId(), userUpdate);
+        return Response.ok().entity(inMemoryStore.getAllData().get(userUpdate.getId())).build();
     }
 }

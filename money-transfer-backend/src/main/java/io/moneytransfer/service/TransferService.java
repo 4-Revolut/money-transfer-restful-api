@@ -15,7 +15,6 @@ package io.moneytransfer.service;
 import io.moneytransfer.model.Account;
 import io.moneytransfer.model.Transfer;
 import io.moneytransfer.model.User;
-import io.moneytransfer.store.InMemoryStore;
 import io.moneytransfer.validation.transfer.BalanceValidation;
 import io.moneytransfer.validation.transfer.TransferValidation;
 
@@ -31,8 +30,6 @@ public class TransferService {
     @Inject private AccountService accountService;
     @Inject private BalanceValidation balanceValidation;
     @Inject private BalanceService balanceService;
-    @Inject private InMemoryStore inMemoryStore;
-
 
     public Response transaction(Transfer transfer) {
         transferValidation.validate(transfer);

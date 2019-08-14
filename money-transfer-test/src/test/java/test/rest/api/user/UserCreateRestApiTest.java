@@ -259,7 +259,7 @@ public class UserCreateRestApiTest {
                 .statusCode(400)
                 .assertThat()
                 .body("type", equalTo(ERROR_RESPONSE_TYPE))
-                .body("message", equalTo("Account balance can't be negative·"));
+                .body("message", equalTo("Account balance can't be negative"));
     }
 
     @Test

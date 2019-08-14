@@ -35,6 +35,14 @@ public class User {
     public User() {
     }
 
+    public User(String id, String email, String firstname, String lastname, AccountArray accountArray) {
+        this.id = id;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.accountArray = accountArray;
+    }
+
     public User(String email, String firstname, String lastname, AccountArray accountArray) {
         this.email = email;
         this.firstname = firstname;

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserGetRestApiTest {
 
-    TestContextApi testContextApi = new TestContextApi();
+    private TestContextApi testContextApi = new TestContextApi();
     private SampleTestData data = new SampleTestData();
 
 
