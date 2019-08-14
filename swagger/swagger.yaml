@@ -104,14 +104,16 @@ components:
         id:
           type: string
         email:
+          maxLength: 30
+          minLength: 10
           type: string
           format: email
         firstname:
-          maxLength: 10
+          maxLength: 15
           minLength: 5
           type: string
         lastname:
-          maxLength: 10
+          maxLength: 15
           minLength: 5
           type: string
         accountArray:
