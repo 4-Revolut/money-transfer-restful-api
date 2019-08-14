@@ -38,7 +38,7 @@ public class UserUpdateRestApiTest {
                 .then().statusCode(400)
                 .assertThat()
                 .body("type", equalTo("error"))
-                .body("message", equalTo("firstname should be between 5 and 10 symbols"));
+                .body("message", equalTo("firstname should be between 5 and 15 symbols"));
     }
 
     @Test
@@ -50,67 +50,6 @@ public class UserUpdateRestApiTest {
                 .then().statusCode(400)
                 .assertThat()
                 .body("type", equalTo("error"))
-                .body("message", equalTo("firstname should be between 5 and 10 symbols"));
-    }
-
-    @Test
-    public void userCreateFail_lastnameTooShort() {
-        given()
-                .contentType("application/json")
-                .body(new User("somemail@mailbox.com", "firstname", TOO_SHORT, null))
-                .when().post("/user")
-                .then().statusCode(400)
-                .assertThat()
-                .body("type", equalTo("error"))
-                .body("message", equalTo("lastname should be between 5 and 10 symbols"));
-    }
-
-    @Test
-    public void userCreateFail_lastnameTooLong() {
-        given()
-            .contentType("application/json")
-            .body(new User("somemail@mailbox.com", "firstname", TOO_LONG, null))
-        .when()
-            .post("/user")
-        .then().statusCode(400)
-            .assertThat()
-                .body("type", equalTo("error"))
-                .body("message", equalTo("lastname should be between 5 and 10 symbols"));
-    }
-
-    @Test
-    public void userCreateFail_emailIncorrect() {
-        given()
-                .contentType("application/json")
-                .body(new User("incorrectEmail", "firstname", "lastname", null))
-                .when().post("/user")
-                .then().statusCode(400)
-                .assertThat()
-                .body("type", equalTo("error"))
-                .body("message", equalTo("please provide correct email"));
-    }
-
-    @Test
-    public void userCreateFail_emailTooShort() {
-        given()
-                .contentType("application/json")
-                .body(new User("a@b.com", "firstname", "lastname", null))
-                .when().post("/user")
-                .then().statusCode(400)
-                .assertThat()
-                .body("type", equalTo("error"))
-                .body("message", equalTo("email should be between 10 and 20 symbols"));
-    }
-
-    @Test
-    public void userCreateFail_emailTooLong() {
-        given()
-                .contentType("application/json")
-                .body(new User("email@thatistoolong.com", "firstname", "lastname", null))
-                .when().post("/user")
-                .then().statusCode(400)
-                .assertThat()
-                .body("type", equalTo("error"))
-                .body("message", equalTo("email should be between 10 and 20 symbols"));
+                .body("message", equalTo("firstname should be between 5 and 15 symbols"));
     }
 }

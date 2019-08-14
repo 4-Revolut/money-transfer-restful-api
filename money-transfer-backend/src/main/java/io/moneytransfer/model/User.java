@@ -15,17 +15,17 @@ public class User {
 
     @NotNull(message = "email is mandatory")
     @Email(message = "please provide correct email")
-    @Size(min = 10, max = 20, message = "email should be between {min} and {max} symbols")
+    @Size(min = 10, max = 30, message = "email should be between {min} and {max} symbols")
     @JsonProperty("email")
     private String email = null;
 
     @NotNull(message = "firstname is mandatory")
-    @Size(min = 5, max = 10, message = "firstname should be between {min} and {max} symbols")
+    @Size(min = 5, max = 15, message = "firstname should be between {min} and {max} symbols")
     @JsonProperty("firstname")
     private String firstname = null;
 
     @NotNull(message = "lastname is mandatory")
-    @Size(min = 5, max = 10, message = "lastname should be between {min} and {max} symbols")
+    @Size(min = 5, max = 15, message = "lastname should be between {min} and {max} symbols")
     @JsonProperty("lastname")
     private String lastname = null;
 
@@ -87,11 +87,6 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public User accountArray(AccountArray accountArray) {
-        this.accountArray = accountArray;
-        return this;
     }
 
     @JsonProperty("accountArray")

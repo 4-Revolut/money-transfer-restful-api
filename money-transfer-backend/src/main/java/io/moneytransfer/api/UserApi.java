@@ -1,6 +1,7 @@
 package io.moneytransfer.api;
 
 import io.moneytransfer.model.User;
+import io.moneytransfer.service.UserFetchService;
 import io.moneytransfer.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,6 +22,9 @@ public class UserApi {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private UserFetchService userFetchService;
 
     @POST
     @Consumes({"application/json"})
@@ -52,6 +56,6 @@ public class UserApi {
             @ApiResponse(responseCode = "200", description = "user found", content = @Content(schema = @Schema(implementation = User.class))),
             @ApiResponse(responseCode = "404", description = "user not found")})
     public Response getUserById(@Parameter(description = "user id that needs to be fetched", required = true) @PathParam("userid") String userid) {
-        return userService.getUserById(userid);
+        return userFetchService.getUserByIdWeb(userid);
     }
 }

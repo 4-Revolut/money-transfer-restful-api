@@ -1,6 +1,5 @@
 package io.moneytransfer.service;
 
-import io.moneytransfer.api.ApiResponseMessage;
 import io.moneytransfer.model.AccountArray;
 import io.moneytransfer.model.User;
 import io.moneytransfer.store.InMemoryStore;
@@ -16,10 +15,14 @@ import static java.util.UUID.randomUUID;
 @Singleton
 public class UserService {
 
-    @Inject private UserValidation userValidation;
-    @Inject private InMemoryStore inMemoryStore;
-    @Inject private AccountService accountService;
-    @Inject private UserDuplicateCheck userDuplicateCheck;
+    @Inject
+    private UserValidation userValidation;
+    @Inject
+    private InMemoryStore inMemoryStore;
+    @Inject
+    private AccountService accountService;
+    @Inject
+    private UserDuplicateCheck userDuplicateCheck;
 
     public UserService() {
     }
@@ -35,32 +38,11 @@ public class UserService {
             accountArray.add(accountService.createPromoAccount());
             user.setAccountArray(accountArray);
         }
-        inMemoryStore.getUsers().put(user.getId(), user);
-        return Response.ok().entity(inMemoryStore.getUsers().get(userId)).build();
+        inMemoryStore.getAllData().put(user.getId(), user);
+        return Response.ok().entity(inMemoryStore.getAllData().get(userId)).build();
     }
 
     public Response editUser(User userUpdate) {
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "editUser magic!")).build();
-    }
-
-    public Response getUserById(String userid) {
-        // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "getUserById magic!")).build();
-    }
-
-    public void setUserValidation(UserValidation userValidation) {
-        this.userValidation = userValidation;
-    }
-
-    public void setInMemoryStore(InMemoryStore inMemoryStore) {
-        this.inMemoryStore = inMemoryStore;
-    }
-
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    public void setUserDuplicateCheck(UserDuplicateCheck userDuplicateCheck) {
-        this.userDuplicateCheck = userDuplicateCheck;
+        return Response.ok().entity( "NOT SUPPORTED").build();
     }
 }

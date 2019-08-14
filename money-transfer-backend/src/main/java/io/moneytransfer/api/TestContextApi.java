@@ -11,13 +11,12 @@ import javax.ws.rs.core.Response;
 @Path("/test")
 public class TestContextApi {
 
-    @Inject
-    private InMemoryStore inMemoryStore;
+    @Inject private InMemoryStore inMemoryStore;
 
     @Path("/clearContext")
     @GET
     public Response clearContext() {
-        inMemoryStore.getUsers().clear();
+        inMemoryStore.getAllData().clear();
         return Response.ok().build();
     }
 }

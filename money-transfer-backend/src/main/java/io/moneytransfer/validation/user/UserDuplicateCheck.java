@@ -30,7 +30,7 @@ public class UserDuplicateCheck {
     };
 
     public void validate(User newUser) {
-        inMemoryStore.getUsers().values().stream().filter(user -> user.getEmail().equals(newUser.getEmail())).findFirst().ifPresent(duplicateFound);
+        inMemoryStore.getAllData().values().stream().filter(user -> user.getEmail().equals(newUser.getEmail())).findFirst().ifPresent(duplicateFound);
     }
 
     public void setInMemoryStore(InMemoryStore inMemoryStore) {

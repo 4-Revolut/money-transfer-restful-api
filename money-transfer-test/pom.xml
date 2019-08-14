@@ -61,10 +61,18 @@
             <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <properties>
         <rest-assured-version>4.0.0</rest-assured-version>
         <junit-version>4.12</junit-version>
+        <assertj-version>3.13.2</assertj-version>
     </properties>
 
 </project>
