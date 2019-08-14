@@ -12,7 +12,7 @@ public class Account {
     @JsonProperty("id")
     private String id = null;
 
-    @Size(min = 5, max = 36)
+    @Size(min = 5, max = 15, message = "Account name should be between {min} and {max} symbols")
     @JsonProperty("name")
     private String name = null;
 

@@ -259,7 +259,53 @@ public class UserCreateRestApiTest {
                 .statusCode(400)
                 .assertThat()
                 .body("type", equalTo(ERROR_RESPONSE_TYPE))
-                .body("message", equalTo("Account balance can't be negative"));
+                .body("message", equalTo("Account balance can't be negative·"));
+    }
+
+    @Test
+    public void userCreateFail_AccountNameTooShort() {
+        User user = new User();
+        user.setEmail("somemail@mailbox.com");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+
+        Account accountA = new Account(null, STRING_4, new BigDecimal(5000));
+        AccountArray accountArray = new AccountArray();
+        accountArray.add(accountA);
+
+        user.setAccountArray(accountArray);
+        given()
+                .contentType("application/json")
+                .body(user)
+                .when().post(USER_PATH)
+                .then()
+                .statusCode(400)
+                .assertThat()
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("Account name should be between 5 and 15 symbols"));
+    }
+
+    @Test
+    public void userCreateFail_AccountNameTooLong() {
+        User user = new User();
+        user.setEmail("somemail@mailbox.com");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+
+        Account accountA = new Account(null, STRING_50_STRONG, new BigDecimal(5000));
+        AccountArray accountArray = new AccountArray();
+        accountArray.add(accountA);
+
+        user.setAccountArray(accountArray);
+        given()
+                .contentType("application/json")
+                .body(user)
+                .when().post(USER_PATH)
+                .then()
+                .statusCode(400)
+                .assertThat()
+                .body("type", equalTo(ERROR_RESPONSE_TYPE))
+                .body("message", equalTo("Account name should be between 5 and 15 symbols"));
     }
 
     private Account promoAccount() {
