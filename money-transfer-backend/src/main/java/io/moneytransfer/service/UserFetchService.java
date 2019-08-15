@@ -4,8 +4,8 @@ import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.model.User;
 import io.moneytransfer.store.InMemoryStore;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -14,7 +14,7 @@ import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
-@Singleton
+@Dependent
 public class UserFetchService {
 
     @Inject

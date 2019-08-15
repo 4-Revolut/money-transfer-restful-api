@@ -5,13 +5,13 @@ import io.moneytransfer.store.InMemoryStore;
 import io.moneytransfer.validation.user.UserDuplicateCheck;
 import io.moneytransfer.validation.user.UserValidation;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.core.Response;
 
 import static java.util.UUID.randomUUID;
 
-@Singleton
+@Dependent
 public class UserService {
 
     @Inject private UserValidation userValidation;

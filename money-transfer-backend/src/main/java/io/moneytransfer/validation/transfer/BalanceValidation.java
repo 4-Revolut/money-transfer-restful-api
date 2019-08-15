@@ -3,7 +3,7 @@ package io.moneytransfer.validation.transfer;
 import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.model.Account;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.Dependent;
 import javax.ws.rs.WebApplicationException;
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.status;
 
-@Singleton
+@Dependent
 public class BalanceValidation {
 
     public void validateDebit(Account debitAccount, BigDecimal debitAmount) {

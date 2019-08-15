@@ -15,7 +15,7 @@ package io.moneytransfer.validation.transfer;
 import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.model.Transfer;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.Dependent;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -30,7 +30,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.status;
 
-@Singleton
+@Dependent
 public class TransferValidation {
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

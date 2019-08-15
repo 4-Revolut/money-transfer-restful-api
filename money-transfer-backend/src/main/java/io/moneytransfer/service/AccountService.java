@@ -6,8 +6,8 @@ import io.moneytransfer.model.AccountArray;
 import io.moneytransfer.model.User;
 import io.moneytransfer.validation.account.AccountValidation;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
-@Singleton
+@Dependent
 public class AccountService {
 
     public static final String PROMO_ACCOUNT = "promo-account";

@@ -18,11 +18,11 @@ import io.moneytransfer.model.User;
 import io.moneytransfer.validation.transfer.BalanceValidation;
 import io.moneytransfer.validation.transfer.TransferValidation;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.core.Response;
 
-@Singleton
+@Dependent
 public class TransferService {
 
     @Inject private TransferValidation transferValidation;

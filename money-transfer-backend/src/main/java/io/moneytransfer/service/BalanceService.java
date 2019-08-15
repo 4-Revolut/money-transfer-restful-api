@@ -2,10 +2,10 @@ package io.moneytransfer.service;
 
 import io.moneytransfer.model.Account;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.Dependent;
 import java.math.BigDecimal;
 
-@Singleton
+@Dependent
 public class BalanceService {
 
 

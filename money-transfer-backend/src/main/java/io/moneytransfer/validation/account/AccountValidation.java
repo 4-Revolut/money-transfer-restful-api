@@ -4,7 +4,7 @@ import io.moneytransfer.api.ApiResponse;
 import io.moneytransfer.model.Account;
 import io.moneytransfer.model.User;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.Dependent;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -19,7 +19,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.status;
 
-@Singleton
+@Dependent
 public class AccountValidation {
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
