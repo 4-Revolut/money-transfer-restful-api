@@ -39,7 +39,7 @@ public class AccountService {
         }
     }
 
-    public Account createPromoAccount() {
+    private Account createPromoAccount() {
         return new Account(UUID.randomUUID().toString(), PROMO_ACCOUNT, new BigDecimal(THOUSAND));
     }
 

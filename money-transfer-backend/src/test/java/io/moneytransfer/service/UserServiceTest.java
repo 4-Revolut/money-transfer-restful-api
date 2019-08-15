@@ -2,6 +2,7 @@ package io.moneytransfer.service;
 
 import io.moneytransfer.model.Account;
 import io.moneytransfer.model.User;
+import io.moneytransfer.sampledata.AccountSampleData;
 import io.moneytransfer.sampledata.UserSampleData;
 import io.moneytransfer.store.InMemoryStore;
 import io.moneytransfer.validation.user.UserDuplicateCheck;
@@ -46,7 +47,8 @@ public class UserServiceTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    UserSampleData userSampleData = new UserSampleData();
+    private UserSampleData userSampleData = new UserSampleData();
+    private AccountSampleData accountSampleData = new AccountSampleData();
 
     @Test
     public void userCreatedOk_withPromoAccount() {
@@ -59,7 +61,7 @@ public class UserServiceTest {
 
         User createdUser = (User) response.getEntity();
         assertThat(expectedUser).isEqualToIgnoringGivenFields(createdUser, "id", "accountArray");
-        assertThat(promoAccount()).isEqualToIgnoringGivenFields(createdUser.getAccountArray().get(0), "id");
+        assertThat(accountSampleData.promoAccount()).isEqualToIgnoringGivenFields(createdUser.getAccountArray().get(0), "id");
     }
 
     @Test
@@ -172,9 +174,5 @@ public class UserServiceTest {
         doThrow(new WebApplicationException(EXCEPTION_DESCRIPTION)).when(userDuplicateCheck).validate(userToEdit);
 
         userService.editUser(userToEdit);
-    }
-
-    private Account promoAccount() {
-        return new Account(null, "promo-account", new BigDecimal("1000"));
     }
 }
