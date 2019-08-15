@@ -23,7 +23,7 @@ public class UserFetchService {
     public UserFetchService() {
     }
 
-    public Response getUserByIdWeb(String userid) {
+    public Response getUserWeb(String userid) {
         User user = getUser(userid);
         return Response.ok().entity(user).build();
     }

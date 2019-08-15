@@ -29,7 +29,7 @@ public class UserDuplicateCheck {
                         .build());
     };
 
-    public void validate(User newUser) {
-        inMemoryStore.getAllData().values().stream().filter(user -> user.getEmail().equals(newUser.getEmail()) && !user.getId().equals(newUser.getId())).findFirst().ifPresent(duplicateFound);
+    public void validate(User userToValidate) {
+        inMemoryStore.getAllData().values().stream().filter(user -> user.getEmail().equals(userToValidate.getEmail()) && !user.getId().equals(userToValidate.getId())).findFirst().ifPresent(duplicateFound);
     }
 }

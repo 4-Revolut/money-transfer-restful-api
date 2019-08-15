@@ -56,6 +56,6 @@ public class UserApi {
             @ApiResponse(responseCode = "200", description = "user found", content = @Content(schema = @Schema(implementation = User.class))),
             @ApiResponse(responseCode = "404", description = "user not found")})
     public Response getUserById(@Parameter(description = "user id that needs to be fetched", required = true) @PathParam("userid") String userid) {
-        return userFetchService.getUserByIdWeb(userid);
+        return userFetchService.getUserWeb(userid);
     }
 }
