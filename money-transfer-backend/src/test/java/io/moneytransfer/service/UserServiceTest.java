@@ -52,8 +52,8 @@ public class UserServiceTest {
 
     @Test
     public void userCreatedOk_withPromoAccount() {
-        User userToCreate = userSampleData.userWithoutAccount();
-        User expectedUser = userSampleData.userWithAccount();
+        User userToCreate = userSampleData.userToCreateWithoutAccount();
+        User expectedUser = userSampleData.userToCreateWithAccount();
 
         doCallRealMethod().when(accountService).createAccount(userToCreate);
         doCallRealMethod().when(inMemoryStore).getAllData();
@@ -66,8 +66,8 @@ public class UserServiceTest {
 
     @Test
     public void userCreatedOk_withSuppliedAccount() {
-        User userToCreate = userSampleData.userWithAccount();
-        User expectedUser = userSampleData.userWithAccount();
+        User userToCreate = userSampleData.userToCreateWithAccount();
+        User expectedUser = userSampleData.userToCreateWithAccount();
 
         String accountId = UUID.randomUUID().toString();
         doAnswer(invocation -> {
@@ -85,7 +85,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserFailure_userValidationError() {
-        User userToCreate = userSampleData.userWithoutAccount();
+        User userToCreate = userSampleData.userToCreateWithoutAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -96,7 +96,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserFailure_duplicateUser() {
-        User userToCreate = userSampleData.userWithoutAccount();
+        User userToCreate = userSampleData.userToCreateWithoutAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -107,7 +107,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserFailure_accountValidationError() {
-        User userToCreate = userSampleData.userWithAccount();
+        User userToCreate = userSampleData.userToCreateWithAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -119,7 +119,7 @@ public class UserServiceTest {
     @Test
     public void editUser() {
         String existingUserId = "existingUserId";
-        User userToEdit = userSampleData.userWithAccount();
+        User userToEdit = userSampleData.userToCreateWithAccount();
         userToEdit.setId(existingUserId);
         userToEdit.setFirstname("firstname-edit");
         userToEdit.setLastname("lastname-edit");
@@ -129,7 +129,7 @@ public class UserServiceTest {
         userToEditAccount.setBalance(new BigDecimal("4321"));
         userToEditAccount.setName("account-name-edit");
 
-        User existingUser = userSampleData.userWithAccount();
+        User existingUser = userSampleData.userToCreateWithAccount();
         existingUser.setId(existingUserId);
 
         when(userFetchService.getUser(userToEdit.getId())).thenReturn(existingUser);
@@ -145,7 +145,7 @@ public class UserServiceTest {
 
     @Test
     public void editUserFail_userValidationError() {
-        User userToEdit = userSampleData.userWithAccount();
+        User userToEdit = userSampleData.userToCreateWithAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -156,7 +156,7 @@ public class UserServiceTest {
 
     @Test
     public void editUserFail_userNotExists() {
-        User userToEdit = userSampleData.userWithAccount();
+        User userToEdit = userSampleData.userToCreateWithAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -167,7 +167,7 @@ public class UserServiceTest {
 
     @Test
     public void editUserFail_duplicateUser() {
-        User userToEdit = userSampleData.userWithAccount();
+        User userToEdit = userSampleData.userToCreateWithAccount();
 
         expectedException.expect(WebApplicationException.class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);

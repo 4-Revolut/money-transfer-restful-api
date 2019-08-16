@@ -37,10 +37,10 @@ public class UserFetchServiceTest {
     @Test
     public void getUserWebOk() {
 
-        User someUser = userSampleData.userWithAccount();
+        User someUser = userSampleData.userToCreateWithAccount();
         someUser.setId(UUID.randomUUID().toString());
 
-        User expectedUser = userSampleData.userWithAccount();
+        User expectedUser = userSampleData.userToCreateWithAccount();
         expectedUser.setEmail("expectedUser@email.com");
         expectedUser.setId(UUID.randomUUID().toString());
         expectedUser.setFirstname("first-name-expected-user");
@@ -61,10 +61,10 @@ public class UserFetchServiceTest {
 
     @Test
     public void getUserOk() {
-        User someUser = userSampleData.userWithAccount();
+        User someUser = userSampleData.userToCreateWithAccount();
         someUser.setId(UUID.randomUUID().toString());
 
-        User expectedUser = userSampleData.userWithAccount();
+        User expectedUser = userSampleData.userToCreateWithAccount();
         expectedUser.setEmail("expectedUser@email.com");
         expectedUser.setId(UUID.randomUUID().toString());
         expectedUser.setFirstname("first-name-expected-user");
@@ -85,10 +85,10 @@ public class UserFetchServiceTest {
 
     @Test
     public void getUserFailure_userNotExist() {
-        User someUser = userSampleData.userWithAccount();
+        User someUser = userSampleData.userToCreateWithAccount();
         someUser.setId(UUID.randomUUID().toString());
 
-        User expectedUser = userSampleData.userWithAccount();
+        User expectedUser = userSampleData.userToCreateWithAccount();
         expectedUser.setEmail("expectedUser@email.com");
         expectedUser.setId(UUID.randomUUID().toString());
         expectedUser.setFirstname("first-name-other-user");

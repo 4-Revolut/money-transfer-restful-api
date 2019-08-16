@@ -41,7 +41,7 @@ public class AccountServiceTest {
 
     @Test
     public void createPromoAccountOk() {
-        User user = userSampleData.userWithoutAccount();
+        User user = userSampleData.userToCreateWithoutAccount();
 
         accountService.createAccount(user);
 
@@ -53,7 +53,7 @@ public class AccountServiceTest {
 
     @Test
     public void createSuppliedAccountOk() {
-        User user = userSampleData.userWithAccount();
+        User user = userSampleData.userToCreateWithAccount();
 
         String accountIdToBeOverridden = "account-id-expected-to-be-overridden";
         Account expectedAccount = user.getAccountArray().get(0);
@@ -70,7 +70,7 @@ public class AccountServiceTest {
 
     @Test
     public void createAccountFail_accountValidationFailed() {
-        User user = userSampleData.userWithAccount();
+        User user = userSampleData.userToCreateWithAccount();
 
         expectedException.expect(WebApplicationException .class);
         expectedException.expectMessage(EXCEPTION_DESCRIPTION);
@@ -81,7 +81,7 @@ public class AccountServiceTest {
 
     @Test
     public void getAccountOk() {
-        User user = userSampleData.userWithAccount();
+        User user = userSampleData.userToCreateWithAccount();
         user.setId("someUserId");
         Account expectedAccount = user.getAccountArray().get(0);
         expectedAccount.setId("someAccountId");
@@ -93,7 +93,7 @@ public class AccountServiceTest {
 
     @Test
     public void getAccountFailed_userNotFound() {
-        User user = userSampleData.userWithAccount();
+        User user = userSampleData.userToCreateWithAccount();
         user.setId("someUserId");
 
         Account expectedAccount = user.getAccountArray().get(0);
@@ -108,11 +108,11 @@ public class AccountServiceTest {
 
     @Test
     public void getAccountFailed_accountNotFound() {
-        User user = userSampleData.userWithAccount();
+        User user = userSampleData.userToCreateWithAccount();
         user.setId("someUserId");
         user.getAccountArray().get(0).setId("non-existing-account-id");
 
-        Account expectedAccount = userSampleData.userWithAccount().getAccountArray().get(0);
+        Account expectedAccount = userSampleData.userToCreateWithAccount().getAccountArray().get(0);
         expectedAccount.setId("someAccountId");
 
         when(userFetchService.getUser(user.getId())).thenReturn(user);
