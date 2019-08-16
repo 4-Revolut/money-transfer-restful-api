@@ -15,7 +15,7 @@ Maven: 3.3.9+
 `mvn jetty:run`
 
 #### Run functional api tests
-###### Change directory to 'money-transfer-test'
+###### change directory to 'money-transfer-test'
 
 `mvn test -Dtest=*ApiTest`
 
