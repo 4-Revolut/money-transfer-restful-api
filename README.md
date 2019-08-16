@@ -2,14 +2,21 @@
 Restful api simulate money transfer between accounts
 
 
-###### Tech
+#### Tech
 java: 8+  
 Maven: 3.3.9+
 
-###### Build
-`mvn clean package
+#### Build 
+###### from project root-directory 'money-transfer'
+`mvn clean install`
 
-###### Run jetty server
-`clean package jetty:run -f pom.xml
+#### Run jetty server
+###### change directory to 'money-transfer-backend'
+`mvn jetty:run`
+
+#### Run functional api tests
+Change directory to 'money-transfer-test'
+
+`mvn test -Dtest=*ApiTest`
 
 
