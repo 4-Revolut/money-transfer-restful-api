@@ -1,1 +1,1 @@
-web: cd money-transfer-backend && mvn jetty:run
+web: java -jar target/dependency/jetty-runner.jar target/*.war
