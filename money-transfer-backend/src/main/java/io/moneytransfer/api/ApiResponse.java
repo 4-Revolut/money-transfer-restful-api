@@ -17,4 +17,8 @@ public class ApiResponse {
         this.message = message;
         this.type = type;
     }
+
+    public String getMessage() {
+        return message;
+    }
 }
