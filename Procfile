@@ -1,0 +1,1 @@
+web: cd money-transfer-backend && mvn jetty:run
