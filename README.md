@@ -27,5 +27,5 @@ ___
 #### You can use swagger-editor gui to try out functionality:
 ###### https://app.swaggerhub.com/apis/4-Revolut/money-transfer/1.0
 
-##### Otherwise any rest-api client available in your arsenal, like curl:
+#### Otherwise any rest-api client available in your arsenal, like curl:
 `curl -X POST "http://money-transfer-revolut.herokuapp.com/4-Revolut/money-transfer/1.0/user" -H "accept: */*" -H "Content-Type: application/json" -d "{\"id\":\"string\",\"email\":\"user@example.com\",\"firstname\":\"string\",\"lastname\":\"string\",\"accountArray\":[{\"id\":\"string\",\"name\":\"string\",\"balance\":0}]}"`
