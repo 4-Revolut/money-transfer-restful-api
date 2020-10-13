@@ -256,7 +256,7 @@
         <jetty-version>9.2.5.v20141112</jetty-version>
         <jersey2-version>2.27</jersey2-version>
         <jackson-version>2.9.5</jackson-version>
-        <junit-version>4.12</junit-version>
+        <junit-version>4.13.1</junit-version>
         <assertj-version>3.13.2</assertj-version>
         <mockito-version>3.0.0</mockito-version>
         <logback-version>1.1.7</logback-version>
